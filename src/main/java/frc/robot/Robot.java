@@ -1,6 +1,7 @@
-package frc.robot;
+/package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -8,21 +9,33 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Robot extends TimedRobot {
 
-    XboxController controller = new XboxController(0);
+    XboxController robotController = new XboxController(constants.DifferentialDrive.port);
 
-    SparkMax leftmotor1 = new SparkMax(0, MotorType.kBrushless);
-    SparkMax leftmotor2 = new SparkMax(0, MotorType.kBrushless);
-    SparkMax rightmotor1 = new SparkMax(0, MotorType.kBrushless);
-    SparkMax rightmotor2 = new SparkMax(0, MotorType.kBrushless);
+    
+    SparkMax leftmotor1 
+        = new SparkMax(constants.DifferentialDrive.leftmotor1, MotorType.kBrushless);
+    SparkMax leftmotor2 
+        = new SparkMax(constants.DifferentialDrive.leftmotor2, MotorType.kBrushless);
+    SparkMax rightmotor1 
+        = new SparkMax(constants.DifferentialDrive.rightmotor1, MotorType.kBrushless);
+    SparkMax rightmotor2 
+        = new SparkMax(constants.DifferentialDrive.rightmotor2, MotorType.kBrushless);
+    
 
-    Constaints.DriveConstraints.kDriveControllerPort;
+    
 
     DifferentialDrive Drive = new DifferentialDrive(leftmotor1,rightmotor1);
 
+    SparkMaxConfig globalConfig = new SparkMaxConfig();
+    SparkMaxConfig leftLeadConfig = new SparkMaxConfig();
+    SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
+    SparkMaxConfig rightleadConfig = new SparkMaxConfig();
+    SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
 
     /** Called once at the beginning of the robot program. */
     public Robot() {
 
+    @Override 
     }
 
     /** This function is run once each time the robot enters autonomous mode. */
