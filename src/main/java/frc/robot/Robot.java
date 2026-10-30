@@ -1,7 +1,9 @@
-/package frc.robot;
+package frc.robot;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
@@ -9,7 +11,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Robot extends TimedRobot {
 
-    XboxController robotController = new XboxController(constants.DifferentialDrive.port);
+    XboxController robotController = new XboxController(constants.DifferentialDrive.joy_Port);
 
     
     SparkMax leftmotor1 
@@ -24,7 +26,7 @@ public class Robot extends TimedRobot {
 
     
 
-    DifferentialDrive Drive = new DifferentialDrive(leftmotor1,rightmotor1);
+    DifferentialDrive Drive = new DifferentialDrive(leftmotor1, rightmotor1);
 
     SparkMaxConfig globalConfig = new SparkMaxConfig();
     SparkMaxConfig leftLeadConfig = new SparkMaxConfig();
@@ -33,10 +35,26 @@ public class Robot extends TimedRobot {
     SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
 
     /** Called once at the beginning of the robot program. */
-    public Robot() {
+    public Robot() {}
 
     @Override 
-    }
+        public void robotInit(){
+            leftLeadConfig.inverted(true);
+            rightleadConfig.inverted(false);
+            leftFollowerConfig.follow(leftmotor1);
+            rightFollowerConfig.follow(rightmotor1);
+            leftmotor1.configure(leftLeadConfig, ResetMode.kResetSafeParameters, 
+                PersistMode.kNoPersistParameters);
+            leftmotor2.configure(leftLeadConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kNoPersistParameters);
+            rightmotor1.configure(leftLeadConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kNoPersistParameters);
+            rightmotor2.configure(leftLeadConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kNoPersistParameters);
+        }
+
+
+    
 
     /** This function is run once each time the robot enters autonomous mode. */
     @Override
@@ -59,7 +77,7 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during teleoperated mode. */
     @Override
     public void teleopPeriodic() {
-
+        Drive.tankDrive(robotController.getLeftY(), robotController.getRightY());
     }
 
     /** This function is called once each time the robot enters test mode. */
