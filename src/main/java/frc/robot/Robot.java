@@ -43,13 +43,14 @@ public class Robot extends TimedRobot {
             rightleadConfig.inverted(false);
             leftFollowerConfig.follow(leftmotor1);
             rightFollowerConfig.follow(rightmotor1);
+
             leftmotor1.configure(leftLeadConfig, ResetMode.kResetSafeParameters, 
                 PersistMode.kNoPersistParameters);
-            leftmotor2.configure(leftLeadConfig, ResetMode.kResetSafeParameters,
+            leftmotor2.configure(leftFollowerConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kNoPersistParameters);
-            rightmotor1.configure(leftLeadConfig, ResetMode.kResetSafeParameters,
+            rightmotor1.configure(rightleadConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kNoPersistParameters);
-            rightmotor2.configure(leftLeadConfig, ResetMode.kResetSafeParameters,
+            rightmotor2.configure(rightFollowerConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kNoPersistParameters);
         }
 
